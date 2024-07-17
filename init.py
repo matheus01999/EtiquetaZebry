@@ -13,11 +13,15 @@ root.geometry('500x500')
 lbl = Label(root, text = "Selecione um Zebra")
 lbl.grid()
 
+# adding Entry Field
+txt = Entry(root, width=10)
+txt.grid(column =2, row =0)
+
 # button widget with red color text
 # inside
 btn = Button(root, text = "IMPRIMIR")
 # set Button grid
-btn.grid(column=1, row=0)
+btn.grid(column=3, row=0)
 
 # all widgets will be here
 # Execute Tkinter
