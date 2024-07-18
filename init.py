@@ -3,44 +3,61 @@ from tkinter import ttk
 import tkinter as tk
 from time import strftime
 
-
+# DEFINIÇÃO DO LAYOUT INICIAL 
 root = tk.Tk()
-root.geometry("500x500")
-root.title("Checklist")
-# Variaveis
-text_var = tk.StringVar()
-text_var.set("CHECKLIST DE ZEBRA")
-Checkbutton1 = IntVar()
+root.geometry("500x300")
+root.title("IMORESSÃO DE CHECKLIST")
 
+# FUNÇÃO INICIAL
 def addImpressora():
     newPrint = Toplevel(root)
     newPrint.geometry("300x300")
     newPrint.title("ZEBRA")
 
-    # SELECIONAR FABRICA
-    selFabrica = {" Rio Amazonas" : 1,
-                "   Rio São Francisco" : 2,
-                "   Rio da Prata" : 3}
+    namePrint_var=tk.StringVar()
+    hostPrint_var=tk.StringVar()
     
-    escolhaFabrica = StringVar(newPrint, '1')
 
-    for (text, value) in selFabrica.items():
-        Radiobutton(newPrint, text = text, variable= escolhaFabrica,
-                    value= value).pack()
+    # ADICIONAR IMPRESSORA
+
+    # IP DA IMPRESSORA
+    hostPrint_label = tk.Label(newPrint, text= 'DIGITE O IP DA IMPRESSORA')
+    hostPrint_Entry = tk.Entry(newPrint, textvariable= hostPrint_var)
+    # NOME DA IMPRESSORA
+    namePrint_label = tk.Label(newPrint, text= 'Z DA IMPRESSORA')
+    namePrint_Entry = tk.Entry(newPrint, textvariable= namePrint_var)
+
+    #BOTÃO DE SALVAR
+    buttonSavePrint = tk.Button(newPrint,
+                   text="Salvar",
+                   padx=10,
+                   pady=5,
+                   )
+
+    hostPrint_label.pack()
+    hostPrint_Entry.pack()
+    namePrint_label.pack()
+    namePrint_Entry.pack()
+    buttonSavePrint.pack(padx=20, pady=20)
+
+
+# Variaveis
+text_var = tk.StringVar()
+text_var.set("CHECKLIST DE ZEBRA")
+Checkbutton1 = IntVar()
 
 #Menu
 menuBar = Menu(root)
-
 Arquivo = Menu(menuBar, tearoff= 0)
+# MENU ARQUIVO 
 menuBar.add_cascade(label="Arquivo", menu = Arquivo)
 Arquivo.add_command(label="Adicionar impressora zebra", command = addImpressora)
 
+root.config(menu = menuBar) 
 
+# ROTULO DO PROGRAMA
 
-
-
-
-Quadrado = tk.Label(root,
+rotulo = tk.Label(root,
                  textvariable=text_var,
                  anchor=tk.CENTER,
                  height=3,
@@ -50,59 +67,53 @@ Quadrado = tk.Label(root,
                  cursor="hand2",
                  bg='lightblue')
 
+rotulo.pack(pady=20)
 
+# SELEÇÃO DE DIA DO CHECK
 
-fabrica1 = Checkbutton(root,
+check15 = Checkbutton(root,
                       variable=Checkbutton1,
-                      text='Rio Amazonas',
-                      onvalue=1,
+                      text='Chalist 15',
+                      onvalue=15,
                       offvalue=0,)
 
+check30 = Checkbutton(root,
+                      variable=Checkbutton1,
+                      text='Chalist 30',
+                      onvalue=30,
+                      offvalue=0,)
+
+check15.pack()
+check30.pack()
+
+# APLICAR CHECKLIST
 
 
-
-
-button = tk.Button(root,
-                   text="IMPRIMIR",
+buttonApply = tk.Button(root,
+                   text="Aplicar",
                    padx=10,
                    pady=5,
                    )
 
+buttonApply.pack(padx=20, pady=20)
 
 
-# label text for title 
-ttk.Label(root, text = "GFG Combobox Widget",  
-          background = 'green', foreground ="white",  
-          font = ("Times New Roman", 15))
-  
-# label 
-ttk.Label(root, text = "Select the Month :", 
-          font = ("Times New Roman", 10)) 
-  
-# Combobox creation 
-n = tk.StringVar() 
-monthchoosen = ttk.Combobox(root, width = 27, textvariable = n) 
-  
-# Adding combobox drop down list 
-monthchoosen['values'] = (' January',  
-                          ' February', 
-                          ' March', 
-                          ' April', 
-                          ' May', 
-                          ' June', 
-                          ' July', 
-                          ' August', 
-                          ' September', 
-                          ' October', 
-                          ' November', 
-                          ' December') 
-  
-monthchoosen.pack()
+#SELEÇÃO DE FABRICA
+
+ttk.Label(root, text= "Selecionar: ")
+n =tk.StringVar()
+
+selecionarEstacao = ttk.Combobox(root, width=27,
+                                 textvariable= n)
+selecionarEstacao['values'] = ('Selecione uma estação',
+                               'Rio Amazonas',
+                               'Rio da Prata',
+                               'Rio São Frnacisco')
+selecionarEstacao.pack()
+selecionarEstacao.current(0)
 
 
-root.config(menu = menuBar) 
-Quadrado.pack(pady=20)
-fabrica1.pack()
-button.pack(padx=20, pady=20)
+
+
 root.mainloop()
 
