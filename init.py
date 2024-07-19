@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 import tkinter as tk
 import sqlite3
+from print import *
 
 
 #CONECTANDO COM O BANCO DE DADOS
@@ -69,15 +70,15 @@ def addImpressora():
 # LISTAR IMPRESSORAS
 
 def topListImpressora():
-        newPrint = Toplevel(root)
-        newPrint.geometry("300x300")
-        newPrint.title("ZEBRA - LISTAR")
+        listPrint = Toplevel(root)
+        listPrint.geometry("300x300")
+        listPrint.title("ZEBRA - LISTAR")
 
         def listarZebra():
              conn = sqlite3.connect("impressoras.db")
              cursor = conn.cursor()
              rows = cursor.execute("SELECT nome, ip FROM printers").fetchall()
-             listTeste = tk.Label(newPrint, text= rows[0])
+             listTeste = tk.Label(listPrint, text= rows[0])
              print(rows)
 
              listTeste.pack()
@@ -85,7 +86,7 @@ def topListImpressora():
 
 
         #BOTÃO DE LISTAR
-        buttonSavePrint = tk.Button(newPrint,
+        buttonSavePrint = tk.Button(listPrint,
                    text="Atualizar",
                    padx=10,
                    pady=5,
@@ -109,7 +110,28 @@ Arquivo.add_command(label="Listar impressora zebra", command = topListImpressora
 
 root.config(menu = menuBar) 
 
+def toPrint15():
+     topPrint15 = Toplevel(root)
+     topPrint15.geometry("500x300")
+     topPrint15.title("CHECKLIST DIA 15")
+     #BOTÃO DE buscar impressora de imprimir
 
+     def printsel(host):
+          imprimir()
+          
+
+     buttonSPrint = tk.Button(topPrint15,
+                   text="automacao",
+                   padx=10,
+                   pady=5,
+                   command=printsel
+                   )
+     buttonSPrint.pack(padx=20, pady=20)
+
+
+     
+          
+     
 
 
 # ROTULO DO PROGRAMA
@@ -154,6 +176,7 @@ buttonApply = tk.Button(root,
                    text="Aplicar",
                    padx=10,
                    pady=5,
+                   command=toPrint15
                    )
 
 buttonApply.pack(padx=20, pady=20)
