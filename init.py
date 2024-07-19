@@ -5,7 +5,20 @@ import sqlite3
 
 
 #CONECTANDO COM O BANCO DE DADOS
-conn = sqlite3.connect("impressoras.db")
+def conectar():
+    conn = sqlite3.connect("impressoras.db")
+    cursor = conn.cursor()
+    if(conn.total_changes == 0):
+        print("Conexão bem sucedida ao banco de dados")
+
+        # CRIAR TABELA DE IMPRESSORAS
+        # cursor.execute("CREATE TABLE printers (nome TEXT, ip TEXT)")
+
+def salvar(host, ip):
+    conn = sqlite3.connect("impressoras.db")
+    cursor = conn.cursor("INSERT INTO printers VALUES ('{host}', '{ip}'")
+    
+    
 
 # DEFINIÇÃO DO LAYOUT INICIAL 
 root = tk.Tk()
@@ -26,9 +39,16 @@ def addImpressora():
     
 
     # ADICIONAR IMPRESSORA
-    def addPrinter(host):
-        printer.append(host)
-        print(printer)
+    def addPrinter(host, ip):
+        # Conectando ao banco de dados existente
+        conn = sqlite3.connect('impressoras.db')
+        
+        # Inserindo um novo usuário na tabela
+        conn.execute("INSERT INTO printers VALUES ('"+host+"', '"+ip+"')")
+        conn.commit()
+
+
+        
         
     
     
@@ -45,7 +65,7 @@ def addImpressora():
                    text="Salvar",
                    padx=10,
                    pady=5,
-                   command=lambda:addPrinter(hostPrint_var.get())
+                   command=lambda:addPrinter(hostPrint_var.get() ,namePrint_var.get())
                    )
 
     hostPrint_label.pack()
