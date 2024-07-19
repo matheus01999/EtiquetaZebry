@@ -1,12 +1,19 @@
 from tkinter import *
 from tkinter import ttk
 import tkinter as tk
-from time import strftime
+import sqlite3
+
+
+#CONECTANDO COM O BANCO DE DADOS
+conn = sqlite3.connect("impressoras.db")
 
 # DEFINIÇÃO DO LAYOUT INICIAL 
 root = tk.Tk()
 root.geometry("500x300")
 root.title("IMORESSÃO DE CHECKLIST")
+
+#VARIAVEL
+printer =[]
 
 # FUNÇÃO INICIAL
 def addImpressora():
@@ -19,10 +26,16 @@ def addImpressora():
     
 
     # ADICIONAR IMPRESSORA
+    def addPrinter(host):
+        printer.append(host)
+        print(printer)
+        
+    
+    
 
     # IP DA IMPRESSORA
     hostPrint_label = tk.Label(newPrint, text= 'DIGITE O IP DA IMPRESSORA')
-    hostPrint_Entry = tk.Entry(newPrint, textvariable= hostPrint_var)
+    hostPrint_Entry = tk.Entry(newPrint, textvariable=hostPrint_var)
     # NOME DA IMPRESSORA
     namePrint_label = tk.Label(newPrint, text= 'Z DA IMPRESSORA')
     namePrint_Entry = tk.Entry(newPrint, textvariable= namePrint_var)
@@ -32,6 +45,7 @@ def addImpressora():
                    text="Salvar",
                    padx=10,
                    pady=5,
+                   command=lambda:addPrinter(hostPrint_var.get())
                    )
 
     hostPrint_label.pack()
