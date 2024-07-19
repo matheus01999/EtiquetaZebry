@@ -25,10 +25,7 @@ root = tk.Tk()
 root.geometry("500x300")
 root.title("IMORESSÃO DE CHECKLIST")
 
-#VARIAVEL
-printer =[]
-
-# FUNÇÃO INICIAL
+#  ARQUIVO - ADICIONAR IMPRESSORA
 def addImpressora():
     newPrint = Toplevel(root)
     newPrint.geometry("300x300")
@@ -42,16 +39,11 @@ def addImpressora():
     def addPrinter(host, ip):
         # Conectando ao banco de dados existente
         conn = sqlite3.connect('impressoras.db')
-        
+
         # Inserindo um novo usuário na tabela
         conn.execute("INSERT INTO printers VALUES ('"+host+"', '"+ip+"')")
         conn.commit()
 
-
-        
-        
-    
-    
 
     # IP DA IMPRESSORA
     hostPrint_label = tk.Label(newPrint, text= 'DIGITE O IP DA IMPRESSORA')
@@ -74,11 +66,38 @@ def addImpressora():
     namePrint_Entry.pack()
     buttonSavePrint.pack(padx=20, pady=20)
 
+# LISTAR IMPRESSORAS
 
-# Variaveis
-text_var = tk.StringVar()
-text_var.set("CHECKLIST DE ZEBRA")
-Checkbutton1 = IntVar()
+def topListImpressora():
+        newPrint = Toplevel(root)
+        newPrint.geometry("300x300")
+        newPrint.title("ZEBRA - LISTAR")
+
+        def listarZebra():
+             conn = sqlite3.connect("impressoras.db")
+             cursor = conn.cursor()
+             rows = cursor.execute("SELECT nome, ip FROM printers").fetchall()
+             listTeste = tk.Label(newPrint, text= rows[0])
+             print(rows)
+
+             listTeste.pack()
+        
+
+
+        #BOTÃO DE LISTAR
+        buttonSavePrint = tk.Button(newPrint,
+                   text="Atualizar",
+                   padx=10,
+                   pady=5,
+                   command=listarZebra
+                   )
+        buttonSavePrint.pack(padx=20, pady=20)
+
+             
+
+
+
+
 
 #Menu
 menuBar = Menu(root)
@@ -86,10 +105,16 @@ Arquivo = Menu(menuBar, tearoff= 0)
 # MENU ARQUIVO 
 menuBar.add_cascade(label="Arquivo", menu = Arquivo)
 Arquivo.add_command(label="Adicionar impressora zebra", command = addImpressora)
+Arquivo.add_command(label="Listar impressora zebra", command = topListImpressora)
 
 root.config(menu = menuBar) 
 
+
+
+
 # ROTULO DO PROGRAMA
+text_var = tk.StringVar()
+text_var.set("CHECKLIST DE ZEBRA")
 
 rotulo = tk.Label(root,
                  textvariable=text_var,
@@ -104,6 +129,8 @@ rotulo = tk.Label(root,
 rotulo.pack(pady=20)
 
 # SELEÇÃO DE DIA DO CHECK
+
+Checkbutton1 = IntVar()
 
 check15 = Checkbutton(root,
                       variable=Checkbutton1,
