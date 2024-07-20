@@ -3,6 +3,7 @@ from tkinter import ttk
 import tkinter as tk
 import sqlite3
 from print import *
+from etiqueta import *
 
 
 #CONECTANDO COM O BANCO DE DADOS
@@ -108,10 +109,12 @@ def telaCheck15():
 
                     rotulo.pack(pady=20)
                     rows = cursor.execute("SELECT nome FROM printers").fetchall()
+                    
+
                     valor = rows.__len__() + 1
                     i = 0
+                    
                     while i < valor:
-                           #zebra = str(rows[i])
                            zebra = "".join(rows[i])
                            buttonPrint = tk.Button(check15,
                                     text=""+zebra+"",
@@ -119,7 +122,13 @@ def telaCheck15():
                                     pady=5,
                                     )
                            buttonPrint.pack(pady=5)
+                           var = rows[i]
                            i += 1
+        else:
+               print("Selecione o dia e a fabrica")
+               
+        
+
 
 
               
