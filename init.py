@@ -6,19 +6,9 @@ from print import *
 
 
 #CONECTANDO COM O BANCO DE DADOS
-def conectar():
-    conn = sqlite3.connect("impressoras.db")
-    cursor = conn.cursor()
-    if(conn.total_changes == 0):
-        print("Conexão bem sucedida ao banco de dados")
-
-        # CRIAR TABELA DE IMPRESSORAS
-        # cursor.execute("CREATE TABLE printers (nome TEXT, ip TEXT)")
-
-def salvar(host, ip):
-    conn = sqlite3.connect("impressoras.db")
-    cursor = conn.cursor("INSERT INTO printers VALUES ('{host}', '{ip}'")
-    
+conn = sqlite3.connect("impressoras.db")
+cursor = conn.cursor()
+   
     
 
 # DEFINIÇÃO DO LAYOUT INICIAL 
@@ -94,11 +84,45 @@ def topListImpressora():
                    )
         buttonSavePrint.pack(padx=20, pady=20)
 
-             
+# TELA DE CHECKLIST 15 
+
+def telaCheck15():
+        if selecionarEstacao.get() != "Selecione uma estação" and Checkbutton1.get() == 15:
+                    check15 = Toplevel(root)
+                    check15.geometry("600x600")
+                    check15.title("CHECKLIST - 15")
+
+                    # ROTULO DO PROGRAMA
+                    text_var = tk.StringVar()
+                    text_var.set(selecionarEstacao.get())
+
+                    rotulo = tk.Label(check15,
+                                    textvariable=text_var,
+                                    anchor=tk.CENTER,
+                                    height=3,
+                                    width=30,
+                                    bd=3,
+                                    font=("Arial", 16, "bold"),
+                                    cursor="hand2",
+                                    bg='lightblue')
+
+                    rotulo.pack(pady=20)
+                    rows = cursor.execute("SELECT nome FROM printers").fetchall()
+                    valor = rows.__len__() + 1
+                    i = 0
+                    while i < valor:
+                           #zebra = str(rows[i])
+                           zebra = "".join(rows[i])
+                           buttonPrint = tk.Button(check15,
+                                    text=""+zebra+"",
+                                    padx=5,
+                                    pady=5,
+                                    )
+                           buttonPrint.pack(pady=5)
+                           i += 1
 
 
-
-
+              
 
 #Menu
 menuBar = Menu(root)
@@ -110,23 +134,9 @@ Arquivo.add_command(label="Listar impressora zebra", command = topListImpressora
 
 root.config(menu = menuBar) 
 
-def toPrint15():
-     topPrint15 = Toplevel(root)
-     topPrint15.geometry("500x300")
-     topPrint15.title("CHECKLIST DIA 15")
-     #BOTÃO DE buscar impressora de imprimir
 
-     def printsel(host):
-          imprimir()
-          
 
-     buttonSPrint = tk.Button(topPrint15,
-                   text="automacao",
-                   padx=10,
-                   pady=5,
-                   command=printsel
-                   )
-     buttonSPrint.pack(padx=20, pady=20)
+
 
 
      
@@ -161,7 +171,6 @@ check15 = Checkbutton(root,
                       offvalue=0,)
 
 check30 = Checkbutton(root,
-                      variable=Checkbutton1,
                       text='Chalist 30',
                       onvalue=30,
                       offvalue=0,)
@@ -176,7 +185,7 @@ buttonApply = tk.Button(root,
                    text="Aplicar",
                    padx=10,
                    pady=5,
-                   command=toPrint15
+                   command=telaCheck15
                    )
 
 buttonApply.pack(padx=20, pady=20)

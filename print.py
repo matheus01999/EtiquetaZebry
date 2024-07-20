@@ -13,5 +13,7 @@ def imprimir(host, port):
     mysocket.close () #closing connection
 
 
-
+def fakeImpressao(host, port):
+    print(host)
+    print(port)
 
