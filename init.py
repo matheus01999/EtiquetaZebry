@@ -63,27 +63,33 @@ def addImpressora():
 def topListImpressora():
         listPrint = Toplevel(root)
         listPrint.geometry("300x300")
-        listPrint.title("ZEBRA - LISTAR")
+        listPrint.title("ZEBRA")
 
-        def listarZebra():
-             conn = sqlite3.connect("impressoras.db")
-             cursor = conn.cursor()
-             rows = cursor.execute("SELECT nome, ip FROM printers").fetchall()
-             listTeste = tk.Label(listPrint, text= rows[0])
-             print(rows)
+        def item(zebra):
+            listTeste = tk.Label(listPrint, text= rows[i])
+            listTeste.pack()
 
-             listTeste.pack()
+        def pesquisarZebra():
+               resultadoPesquisaZebra = tk.Label(listPrint, text="Zebra")
+
+               resultadoPesquisaZebra.pack()
+               
+
+        rows = cursor.execute("SELECT * FROM printers").fetchall()
+        searchZebra = tk.Label(listPrint, text = 'Zebra', font=('calibre',10, 'bold'))
+        entryZebra = tk.Entry(listPrint)
+        buttonSearchZebra = tk.Button(listPrint, text="Pesquisar", command=pesquisarZebra)
+
         
 
+        searchZebra.pack()
+        entryZebra.pack(pady=10)
+        buttonSearchZebra.pack(pady=10)
 
-        #BOTÃO DE LISTAR
-        buttonSavePrint = tk.Button(listPrint,
-                   text="Atualizar",
-                   padx=10,
-                   pady=5,
-                   command=listarZebra
-                   )
-        buttonSavePrint.pack(padx=20, pady=20)
+      
+
+
+
 
 # TELA DE CHECKLIST 15 
 
@@ -110,20 +116,6 @@ def telaCheck15():
                     rotulo.pack(pady=20)
                     rows = cursor.execute("SELECT nome FROM printers").fetchall()
                     
-
-                    valor = rows.__len__() + 1
-                    i = 0
-                    
-                    while i < valor:
-                           zebra = "".join(rows[i])
-                           buttonPrint = tk.Button(check15,
-                                    text=""+zebra+"",
-                                    padx=5,
-                                    pady=5,
-                                    )
-                           buttonPrint.pack(pady=5)
-                           var = rows[i]
-                           i += 1
         else:
                print("Selecione o dia e a fabrica")
                
@@ -139,7 +131,7 @@ Arquivo = Menu(menuBar, tearoff= 0)
 # MENU ARQUIVO 
 menuBar.add_cascade(label="Arquivo", menu = Arquivo)
 Arquivo.add_command(label="Adicionar impressora zebra", command = addImpressora)
-Arquivo.add_command(label="Listar impressora zebra", command = topListImpressora)
+Arquivo.add_command(label="Zebras Cadastradas", command = topListImpressora)
 
 root.config(menu = menuBar) 
 
