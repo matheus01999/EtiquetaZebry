@@ -20,7 +20,7 @@ root.title("IMORESSÃO DE CHECKLIST")
 #  ARQUIVO - ADICIONAR IMPRESSORA
 def addImpressora():
     newPrint = Toplevel(root)
-    newPrint.geometry("300x300")
+    newPrint.geometry("300x200")
     newPrint.title("ZEBRA")
 
     namePrint_var=tk.StringVar()
@@ -65,10 +65,6 @@ def topListImpressora():
         listPrint.geometry("300x300")
         listPrint.title("ZEBRA")
 
-        def item(zebra):
-            listTeste = tk.Label(listPrint, text= rows[i])
-            listTeste.pack()
-
         def pesquisarZebra():
                resultadoPesquisaZebra = tk.Label(listPrint, text="Zebra")
 
@@ -87,6 +83,10 @@ def topListImpressora():
         buttonSearchZebra.pack(pady=10)
 
       
+
+
+def imprimiretiqueta(localidade):
+                           print(localidade)
 
 
 
@@ -114,7 +114,23 @@ def telaCheck15():
                                     bg='lightblue')
 
                     rotulo.pack(pady=20)
-                    rows = cursor.execute("SELECT nome FROM printers").fetchall()
+
+                    # IMPRESSÃO PADRAO
+                    etiquetaPadraoB = tk.Button(check15, text="Default", command=lambda:fakeImpressao('172.25', 9100, gerarTiquetaPadrao()))
+                    etiquetaPadraoB.pack()
+                    
+
+                    # GERAR BOTÃOES PELA FABRICA SLECIONADA
+                    rows = cursor.execute("""SELECT * FROM printers
+                                            WHERE localidade = '"""+selecionarEstacao.get()+"""'""").fetchall()
+                    i = 0
+                    x = len(rows)
+                    while i < x:
+                           zebra = rows[i]
+                           botaoZebra = tk.Button(check15, text=""+zebra[1]+"", command=lambda:gerarEtiqueta(zebra[1], zebra[4], zebra[3], "hoje"))
+                           botaoZebra.pack()
+                           i+=1
+
                     
         else:
                print("Selecione o dia e a fabrica")

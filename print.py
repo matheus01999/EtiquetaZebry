@@ -4,16 +4,13 @@ mysocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 #port = 9100 
 
 
-lerArquivo = open('etiqueta.txt', 'rb')
-etiqueta = lerArquivo.read()
-
-def imprimir(host, port):         
+def imprimir(host, port, etiqueta):         
     mysocket.connect((host, port)) #connecting to host
     mysocket.send(etiqueta)#using bytes
     mysocket.close () #closing connection
 
 
-def fakeImpressao(host, port):
-    print(host)
-    print(port)
+def fakeImpressao(host, port, etiqueta):
+    print(etiqueta)
+
 
