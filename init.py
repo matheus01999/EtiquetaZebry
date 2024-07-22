@@ -10,34 +10,22 @@ from etiqueta import *
 conn = sqlite3.connect("impressoras.db")
 cursor = conn.cursor()
    
-    
 
 # DEFINIÇÃO DO LAYOUT INICIAL 
 root = tk.Tk()
 root.geometry("500x300")
 root.title("IMORESSÃO DE CHECKLIST")
 
-#  ARQUIVO - ADICIONAR IMPRESSORA
-def addImpressora():
+
+#  TELA PARA ADICIONAR IMPRESSORA
+def menuAdicionarPrinter():
     newPrint = Toplevel(root)
     newPrint.geometry("300x200")
     newPrint.title("ZEBRA")
-
+    # IP DA IMPRESSORA
     namePrint_var=tk.StringVar()
     hostPrint_var=tk.StringVar()
-    
 
-    # ADICIONAR IMPRESSORA
-    def addPrinter(host, ip):
-        # Conectando ao banco de dados existente
-        conn = sqlite3.connect('impressoras.db')
-
-        # Inserindo um novo usuário na tabela
-        conn.execute("INSERT INTO printers VALUES ('"+host+"', '"+ip+"')")
-        conn.commit()
-
-
-    # IP DA IMPRESSORA
     hostPrint_label = tk.Label(newPrint, text= 'DIGITE O IP DA IMPRESSORA')
     hostPrint_Entry = tk.Entry(newPrint, textvariable=hostPrint_var)
     # NOME DA IMPRESSORA
@@ -58,82 +46,79 @@ def addImpressora():
     namePrint_Entry.pack()
     buttonSavePrint.pack(padx=20, pady=20)
 
-# LISTAR IMPRESSORAS
 
-def topListImpressora():
+# BOTÃO DO MENU ADICIONAR IMPRESSORA
+
+def addPrinter(host, ip):
+    # INSERIR OS DADOS DA IMPRESSORA NO BANCO
+    conn.execute("INSERT INTO printers VALUES ('"+host+"', '"+ip+"')")
+    conn.commit()
+       
+
+# BOTÃO DO MENU PARA LISTAR IMPRESSORAS
+
+def menuListarPrinter():
         listPrint = Toplevel(root)
         listPrint.geometry("300x300")
         listPrint.title("ZEBRA")
 
-        def pesquisarZebra():
-               resultadoPesquisaZebra = tk.Label(listPrint, text="Zebra")
-
-               resultadoPesquisaZebra.pack()
-               
-
-        rows = cursor.execute("SELECT * FROM printers").fetchall()
         searchZebra = tk.Label(listPrint, text = 'Zebra', font=('calibre',10, 'bold'))
         entryZebra = tk.Entry(listPrint)
-        buttonSearchZebra = tk.Button(listPrint, text="Pesquisar", command=pesquisarZebra)
-
-        
+        buttonSearchZebra = tk.Button(listPrint, text="Pesquisar",command=lambda:botaoPesquisarZebra())
 
         searchZebra.pack()
         entryZebra.pack(pady=10)
         buttonSearchZebra.pack(pady=10)
 
-      
-
-
-def imprimiretiqueta(localidade):
-                           print(localidade)
-
-
-
+# BOTAO PRECISA PESQUISAR E MOSTRAS OS DADOS DA ZEBRA
+def botaoPesquisarZebra():
+       print('teste')
+  
 
 # TELA DE CHECKLIST 15 
-
-def telaCheck15():
+def telaChecklist():
         if selecionarEstacao.get() != "Selecione uma estação" and Checkbutton1.get() == 15:
-                    check15 = Toplevel(root)
-                    check15.geometry("600x600")
-                    check15.title("CHECKLIST - 15")
+              check15 = Toplevel(root)
+              check15.geometry("600x600")
+              check15.title("CHECKLIST - 15")
 
-                    # ROTULO DO PROGRAMA
-                    text_var = tk.StringVar()
-                    text_var.set(selecionarEstacao.get())
+              # ROTULO DO PROGRAMA
+              text_var = tk.StringVar()
+              text_var.set(selecionarEstacao.get())
 
-                    rotulo = tk.Label(check15,
-                                    textvariable=text_var,
-                                    anchor=tk.CENTER,
-                                    height=3,
-                                    width=30,
-                                    bd=3,
-                                    font=("Arial", 16, "bold"),
-                                    cursor="hand2",
-                                    bg='lightblue')
+              rotulo = tk.Label(check15,
+                                   textvariable=text_var,
+                                   anchor=tk.CENTER,
+                                   height=3,
+                                   width=30,
+                                   bd=3,
+                                   font=("Arial", 16, "bold"),
+                                   cursor="hand2",
+                                   bg='lightblue')
 
-                    rotulo.pack(pady=20)
+              rotulo.pack(pady=20)
 
-                    # IMPRESSÃO PADRAO
-                    etiquetaPadraoB = tk.Button(check15, text="Default", command=lambda:fakeImpressao('172.25', 9100, gerarTiquetaPadrao()))
-                    etiquetaPadraoB.pack()
+              # IMPRESSÃO PADRAO
+              etiquetaPadraoB = tk.Button(check15, text="Default", command=lambda:fakeImpressao('172.25', 9100, gerarTiquetaPadrao()))
+              etiquetaPadraoB.pack()
+              
+
+              # GERAR BOTÃOES PELA FABRICA SLECIONADA
+              rows = cursor.execute("""SELECT * FROM printers
+                                          WHERE localidade = '"""+selecionarEstacao.get()+"""'""").fetchall()
+              i = 0
+              x = len(rows)
+              while i < x:
+                     zebra = rows[i]
+                     botaoZebra = tk.Button(check15, text=""+zebra[1]+"", command=lambda:gerarEtiqueta(zebra[1], zebra[4], zebra[3], "hoje"))
+                     botaoZebra.pack()
+                     i+=1
+              else:
+                    print('Erro ao selecionar o botão')
                     
-
-                    # GERAR BOTÃOES PELA FABRICA SLECIONADA
-                    rows = cursor.execute("""SELECT * FROM printers
-                                            WHERE localidade = '"""+selecionarEstacao.get()+"""'""").fetchall()
-                    i = 0
-                    x = len(rows)
-                    while i < x:
-                           zebra = rows[i]
-                           botaoZebra = tk.Button(check15, text=""+zebra[1]+"", command=lambda:gerarEtiqueta(zebra[1], zebra[4], zebra[3], "hoje"))
-                           botaoZebra.pack()
-                           i+=1
-
-                    
+                    # BUSCAR INFORMAÇÕES NO BANCO COM BASE NO NAME PARA DEPOIS MANDAR PARA ETIQUETA
         else:
-               print("Selecione o dia e a fabrica")
+         print("Selecione o dia e a fabrica")
                
         
 
@@ -146,8 +131,8 @@ menuBar = Menu(root)
 Arquivo = Menu(menuBar, tearoff= 0)
 # MENU ARQUIVO 
 menuBar.add_cascade(label="Arquivo", menu = Arquivo)
-Arquivo.add_command(label="Adicionar impressora zebra", command = addImpressora)
-Arquivo.add_command(label="Zebras Cadastradas", command = topListImpressora)
+Arquivo.add_command(label="Adicionar impressora zebra", command = menuAdicionarPrinter)
+Arquivo.add_command(label="Zebras Cadastradas", command = menuListarPrinter)
 
 root.config(menu = menuBar) 
 
@@ -181,6 +166,7 @@ rotulo.pack(pady=20)
 
 Checkbutton1 = IntVar()
 
+
 check15 = Checkbutton(root,
                       variable=Checkbutton1,
                       text='Chalist 15',
@@ -189,6 +175,7 @@ check15 = Checkbutton(root,
 
 check30 = Checkbutton(root,
                       text='Chalist 30',
+                      variable=Checkbutton1,
                       onvalue=30,
                       offvalue=0,)
 
@@ -202,7 +189,7 @@ buttonApply = tk.Button(root,
                    text="Aplicar",
                    padx=10,
                    pady=5,
-                   command=telaCheck15
+                   command=telaChecklist
                    )
 
 buttonApply.pack(padx=20, pady=20)
