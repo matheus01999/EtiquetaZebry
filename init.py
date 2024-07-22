@@ -4,6 +4,7 @@ import tkinter as tk
 import sqlite3
 from print import *
 from etiqueta import *
+from tkinter import messagebox
 
 
 #CONECTANDO COM O BANCO DE DADOS
@@ -77,7 +78,7 @@ def botaoPesquisarZebra():
 
 # TELA DE CHECKLIST 15 
 def telaChecklist():
-        if selecionarEstacao.get() != "Selecione uma estação" and Checkbutton1.get() == 15:
+        if selecionarEstacao.get() != "Selecione uma estação" and Checkbutton1.get() == 15 or Checkbutton1.get() == 30:
               check15 = Toplevel(root)
               check15.geometry("600x600")
               check15.title("CHECKLIST - 15")
@@ -113,12 +114,10 @@ def telaChecklist():
                      botaoZebra = tk.Button(check15, text=""+zebra[1]+"", command=lambda:gerarEtiqueta(zebra[1], zebra[4], zebra[3], "hoje"))
                      botaoZebra.pack()
                      i+=1
-              else:
-                    print('Erro ao selecionar o botão')
                     
                     # BUSCAR INFORMAÇÕES NO BANCO COM BASE NO NAME PARA DEPOIS MANDAR PARA ETIQUETA
         else:
-         print("Selecione o dia e a fabrica")
+         messagebox.showwarning("Erro", "Fabrica ou Data não selecionada") 
                
         
 
