@@ -1,13 +1,12 @@
 import socket              
 mysocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)         
-#host = "172.26.51.59" 
-#port = 9100 
 
 
-def imprimir(host, port, etiqueta):         
+def imprimirEtiqueta(host, port):    
     mysocket.connect((host, port)) #connecting to host
-    mysocket.send(etiqueta)#using bytes
+    mysocket.send(b"^XA^A0N,50,50^FO50,50^FDSocket Test^FS^XZ")#using bytes
     mysocket.close () #closing connection
+
 
 
 def fakeImpressao(host, port, etiqueta):

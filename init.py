@@ -100,10 +100,10 @@ def telaChecklist():
               rotulo.pack(pady=20)
 
               # IMPRESSÃO PADRAO
-              etiquetaPadraoB = tk.Button(check15, text="Default", command=lambda:fakeImpressao('172.25', 9100, gerarTiquetaPadrao()))
+              etiquetaPadraoB = tk.Button(check15, text="Default", command=lambda:imprimirEtiqueta('172.26.51.59', 9100))
               etiquetaPadraoB.pack()
               
-
+ 
               # GERAR BOTÃOES PELA FABRICA SLECIONADA
               rows = cursor.execute("""SELECT * FROM printers
                                           WHERE localidade = '"""+selecionarEstacao.get()+"""'""").fetchall()
