@@ -1,15 +1,37 @@
-from init import *
+import tkinter as tk
 
-def telaCheck15():
-        check15 = Toplevel(root)
-        check15.geometry("400x400")
-        check15.title("CHECKLIST - 15")
+# Create the main window
+root = tk.Tk()
+root.geometry("400x250")  # Set window size
+root.title("Welcome to My App")  # Set window title
 
-        #BOTÃO COM O NOME DA IMPRESSORA
-        buttonSavePrint = tk.Button(check15,
-                   text="Atualizar",
-                   padx=10,
-                   pady=5,
-                   command=lambda:fakeImpressao("172.26.51.59" ,9100)
-                   )
-        buttonSavePrint.pack(padx=20, pady=20)
+# Create a StringVar to associate with the label
+text_var = tk.StringVar()
+text_var.set("Hello, World!")
+
+# Create the label widget with all options
+label = tk.Label(root, 
+                 textvariable=text_var, 
+                 anchor=tk.CENTER,       
+                 bg="lightblue",      
+                 height=3,              
+                 width=30,              
+                 bd=3,                  
+                 font=("Arial", 16, "bold"), 
+                 cursor="hand2",   
+                 fg="red",             
+                 padx=15,               
+                 pady=15,                
+                 justify=tk.CENTER,    
+                 relief=tk.RAISED,     
+                 underline=0,           
+                 wraplength=250         
+                )
+
+# Pack the label into the window
+label.pack(pady=20)  # Add some padding to the top
+
+print(text_var.get())
+
+# Run the main event loop
+root.mainloop()

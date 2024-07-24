@@ -67,6 +67,8 @@ def menuListarPrinter():
         entryZebra = tk.Entry(listPrint)
         buttonSearchZebra = tk.Button(listPrint, text="Pesquisar",command=lambda:botaoPesquisarZebra())
 
+
+
         searchZebra.pack()
         entryZebra.pack(pady=10)
         buttonSearchZebra.pack(pady=10)
@@ -99,23 +101,59 @@ def telaChecklist():
 
               rotulo.pack(pady=20)
 
-              # IMPRESSÃO PADRAO
+              # BOTÃO PARA IMPRESSÃO PADRÃO
               etiquetaPadraoB = tk.Button(check15, text="Default", command=lambda:imprimirEtiqueta('172.26.51.59', 9100))
               etiquetaPadraoB.pack()
-              
- 
-              # GERAR BOTÃOES PELA FABRICA SLECIONADA
+
+              # BUSCAR ZEBRAS DAS FABRICA SLECIONADA
               rows = cursor.execute("""SELECT * FROM printers
                                           WHERE localidade = '"""+selecionarEstacao.get()+"""'""").fetchall()
+
+              CheckbuttonZebra = IntVar()
+
+              i = 0
+              x = len(rows)
+              while i < x :
+                     zebra = rows[i]
+                     checkZebra = Checkbutton(check15,
+                      variable=CheckbuttonZebra,
+                      text= str(zebra[i]),
+                      onvalue= zebra[i],
+                      offvalue=0,)
+                     checkZebra.pack()
+
+                     i+=1
+                    
+
+
+
+              
+
+
+
+              # BUSCAR ZEBRAS DAS FABRICA SLECIONADA
+              rows = cursor.execute("""SELECT * FROM printers
+                                          WHERE localidade = '"""+selecionarEstacao.get()+"""'""").fetchall()
+              
+              # GERAR BOTOES COM A INFORMAÇÃO DAS BUSCA
               i = 0
               x = len(rows)
               while i < x:
                      zebra = rows[i]
-                     botaoZebra = tk.Button(check15, text=""+zebra[1]+"", command=lambda:gerarEtiqueta(zebra[1], zebra[4], zebra[3], "hoje"))
+                     text_v = 'v' + str(zebra[i])
+                     print(text_v)
+                     botaoZebra = tk.Button(check15, text=""+zebra[1]+"", textvariable=text_v)
                      botaoZebra.pack()
+
                      i+=1
                     
                     # BUSCAR INFORMAÇÕES NO BANCO COM BASE NO NAME PARA DEPOIS MANDAR PARA ETIQUETA
+
+
+              
+                    
+
+
         else:
          messagebox.showwarning("Erro", "Fabrica ou Data não selecionada") 
                
