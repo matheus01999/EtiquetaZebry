@@ -1,28 +1,7 @@
-import sqlite3
-conn = sqlite3.connect("impressoras.db")
-cursor = conn.cursor()
-
-a = cursor.execute("""SELECT * FROM printers
-                                          WHERE localidade = 'Rio Amazonas'""").fetchall()
-
-
- 
-a1 = []
-a2 = []
-a3 = []
-a4 = []
-a5 = []
-
-indice = 1
-
-for i,num in enumerate(a):
-    variavel = 'a' + str(indice)
-    vars()[variavel].append(num)
-
-    indice = indice + 1
-    if (indice >5):
-        indice = 1
-
-print(a1)
-print(a2)
-print(a3)
+from tkinter import *
+root = Tk()
+root.geometry('250x200+250+200')
+Label(root, text="Position 1 : x=0, y=0", bg="#FFFF00", fg="white").place(x=5, y=0)
+Label(root, text="Position 2 : x=50, y=40", bg="#3300CC", fg="white").place(x=50, y=40)
+Label(root, text="Position 3 : x=100, y=100", bg="#FF0099", fg="white").place(x=10, y=80)
+root.mainloop()

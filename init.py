@@ -81,7 +81,7 @@ def menuListarPrinter():
 def telaChecklist():
         if selecionarEstacao.get() != "Selecione uma estação" and Checkbutton1.get() == 15 or Checkbutton1.get() == 30:
               check15 = Toplevel(root)
-              check15.geometry("600x600")
+              check15.geometry("500x500")
               check15.title("CHECKLIST - 15")
 
               # ROTULO DO PROGRAMA
@@ -90,15 +90,11 @@ def telaChecklist():
 
               rotulo = tk.Label(check15,
                                    textvariable=text_var,
-                                   anchor=tk.CENTER,
-                                   height=3,
-                                   width=30,
                                    bd=3,
                                    font=("Arial", 16, "bold"),
-                                   cursor="hand2",
-                                   bg='lightblue')
+                                   cursor="hand2").place(x=10, y=10)
 
-              rotulo.pack(pady=20)
+
 
 
 
@@ -106,38 +102,43 @@ def telaChecklist():
               rows = cursor.execute("""SELECT * FROM printers
                                           WHERE localidade = '"""+selecionarEstacao.get()+"""'""").fetchall()
               
+              
               #  GERAR BOTÃO PARA IMPRESSÃO PADRÃO PELA FABRICA SELECIONADA
               
-              etiquetaPadraoB = tk.Button(check15, text='Padrão ' + selecionarEstacao.get(), command=lambda:gerarTiquetaPadrao())             
+              etiquetaPadraoB = tk.Button(check15, text='Padrão ' + selecionarEstacao.get()).place(x=350, y=450)     
 
-              etiquetaPadraoB.pack()
 
-              # SELECIONAR IMPRESSORA PARA MANDAR ETIQUETA PADRÃO
+
+              # SELECIONAR IMPRESSORA 
 
               zebraSelecionada = StringVar()
-
-             
               printer_automacao = Checkbutton(check15,
                                    variable=zebraSelecionada,
                                    text='Automacao',
                                    onvalue='172.26.51.59',
-                                   offvalue=0,)
+                                   offvalue=0,).place(y=50, x=400)
 
-              printer_automacao.pack()
-              printLabel = tk.Label(check15, text="IP: ")
-              printerEntry = tk.Entry(check15, textvariable=zebraSelecionada)
+
+
+              Label(check15, text="IP: ").place(y=50, x=15)
+              printerEntry = tk.Entry(check15, textvariable=zebraSelecionada).place(y=50, x=35)
+              applyButton = tk.Button(check15, text='Procurar').place(y=50, x=170)
+              botaoImprimir = tk.Button(check15, text='Imprimir').place(x=10, y=470)
+
+              ttk.Label(root, text= "Selecionar: ")
+
+
+              comboxSelZebra = ttk.Combobox(check15, 
+                                          textvariable= zebraSelecionada)
+              comboxSelZebra['values'] = ('Selecione uma zebra',
+                                          'Rio Amazonas',
+                                          'Rio da Prata',
+                                          'Rio São Frnacisco')
+              comboxSelZebra.place(y=50 ,x=15)
+              comboxSelZebra.current(0)
               
-              printLabel.pack()
-              printerEntry.pack()
 
-              def imprimir(ip):
-                    print(ip)
-
-
-              botaoImprimir = tk.Button(check15, text='Imprimir', command=lambda:imprimir(zebraSelecionada.get()))
-
-
-              botaoImprimir.pack()
+   
 
 
 
