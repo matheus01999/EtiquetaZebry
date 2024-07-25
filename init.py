@@ -4,6 +4,7 @@ import tkinter as tk
 import sqlite3
 from print import *
 from etiqueta import *
+from buttons import *
 from tkinter import messagebox
 
 
@@ -99,13 +100,16 @@ def telaChecklist():
 
               rotulo.pack(pady=20)
 
-              # BOTÃO PARA IMPRESSÃO PADRÃO
-              etiquetaPadraoB = tk.Button(check15, text="Default", command=lambda:imprimirEtiqueta('172.26.51.59', 9100))
-              etiquetaPadraoB.pack()
+
 
               # BUSCAR ZEBRAS DAS FABRICA SLECIONADA
               rows = cursor.execute("""SELECT * FROM printers
                                           WHERE localidade = '"""+selecionarEstacao.get()+"""'""").fetchall()
+              
+              #  GERAR BOTÃO PARA IMPRESSÃO PADRÃO PELA FABRICA SELECIONADA
+              etiquetaPadraoB = tk.Button(check15, text='Padrão ' + selecionarEstacao.get(), command=lambda:imprimirEtiqueta('172.26.51.59', 9100))
+              
+              etiquetaPadraoB.pack()
 
               # GERAR BOTOES COM BASE NA QUERY
               a1 = []
@@ -126,13 +130,8 @@ def telaChecklist():
                      if (indice >5):
                             indice = 1
 
-              x = len(listaZebras)
-              i = 0
-              while i < x:
-                    Zbotao = tk.Button(check15, text='nome', textvariable='a' + str(indice))
-                    Zbotao.pack()
-                    print(a1)
-                    i+=1
+              botaozebra1 = a1[0]
+              b1 = BotaoAmazonas(botaozebra1[1], botaozebra1[4])
 
                      
 
