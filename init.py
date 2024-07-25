@@ -66,7 +66,7 @@ def menuListarPrinter():
 
         searchZebra = tk.Label(listPrint, text = 'Zebra', font=('calibre',10, 'bold'))
         entryZebra = tk.Entry(listPrint)
-        buttonSearchZebra = tk.Button(listPrint, text="Pesquisar",command=lambda:botaoPesquisarZebra())
+        buttonSearchZebra = tk.Button(listPrint, text="Pesquisar")
 
 
 
@@ -74,9 +74,6 @@ def menuListarPrinter():
         entryZebra.pack(pady=10)
         buttonSearchZebra.pack(pady=10)
 
-# BOTAO PRECISA PESQUISAR E MOSTRAS OS DADOS DA ZEBRA
-def botaoPesquisarZebra():
-       print('teste')
   
 
 # TELA DE CHECKLIST 15 
@@ -110,45 +107,35 @@ def telaChecklist():
               rows = cursor.execute("""SELECT * FROM printers
                                           WHERE localidade = '"""+selecionarEstacao.get()+"""'""").fetchall()
 
-              CheckbuttonZebra = IntVar()
+              # GERAR BOTOES COM BASE NA QUERY
+              a1 = []
+              a2 = []
+              a3 = []
+              a4 = []
+              a5 = []
 
+              indice = 1
+              listaZebras = []
+
+              for i,num in enumerate(rows):
+                     variavel = 'a' + str(indice)
+                     vars()[variavel].append(num)
+                     listaZebras.append(variavel)
+
+                     indice = indice + 1
+                     if (indice >5):
+                            indice = 1
+
+              x = len(listaZebras)
               i = 0
-              x = len(rows)
-              while i < x :
-                     zebra = rows[i]
-                     checkZebra = Checkbutton(check15,
-                      variable=CheckbuttonZebra,
-                      text= str(zebra[i]),
-                      onvalue= zebra[i],
-                      offvalue=0,)
-                     checkZebra.pack()
-
-                     i+=1
-                    
-
-
-
-              
-
-
-
-              # BUSCAR ZEBRAS DAS FABRICA SLECIONADA
-              rows = cursor.execute("""SELECT * FROM printers
-                                          WHERE localidade = '"""+selecionarEstacao.get()+"""'""").fetchall()
-              
-              # GERAR BOTOES COM A INFORMAÇÃO DAS BUSCA
-              i = 0
-              x = len(rows)
               while i < x:
-                     zebra = rows[i]
-                     text_v = 'v' + str(zebra[i])
-                     print(text_v)
-                     botaoZebra = tk.Button(check15, text=""+zebra[1]+"", textvariable=text_v)
-                     botaoZebra.pack()
+                    Zbotao = tk.Button(check15, text='nome', textvariable='a' + str(indice))
+                    Zbotao.pack()
+                    print(a1)
+                    i+=1
 
-                     i+=1
-                    
-                    # BUSCAR INFORMAÇÕES NO BANCO COM BASE NO NAME PARA DEPOIS MANDAR PARA ETIQUETA
+                     
+
 
 
               
