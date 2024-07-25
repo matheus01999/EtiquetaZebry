@@ -102,6 +102,7 @@ def telaChecklist():
               rows = cursor.execute("""SELECT * FROM printers
                                           WHERE localidade = '"""+selecionarEstacao.get()+"""'""").fetchall()
               
+
               
               #  GERAR BOTÃO PARA IMPRESSÃO PADRÃO PELA FABRICA SELECIONADA
               
@@ -117,12 +118,10 @@ def telaChecklist():
                                    text='Automacao',
                                    onvalue='172.26.51.59',
                                    offvalue=0,).place(y=50, x=400)
-
-
+              
 
               Label(check15, text="IP: ").place(y=50, x=15)
               printerEntry = tk.Entry(check15, textvariable=zebraSelecionada).place(y=50, x=35)
-              applyButton = tk.Button(check15, text='Procurar').place(y=50, x=170)
               botaoImprimir = tk.Button(check15, text='Imprimir').place(x=10, y=470)
 
               ttk.Label(root, text= "Selecionar: ")
@@ -136,7 +135,36 @@ def telaChecklist():
                                           'Rio São Frnacisco')
               comboxSelZebra.place(y=50 ,x=15)
               comboxSelZebra.current(0)
+
+              #MOSTRAR INFORMAÇÕES DA ZEBRA SELECIONADA
+              def pesquisarZebra():
+                    if zebraSelecionada.get() != 'Selecione uma zebra':
+                     rowsZebra = cursor.execute("""SELECT * FROM printers
+                     WHERE ip = '"""+zebraSelecionada.get()+"""'""").fetchall()
+                     zebra = rowsZebra[0]
+                     Label(check15, text="FILA : " + zebra[1]).place(y=100, x=15)
+                     Label(check15, text="IP : " + zebra[2]).place(y=120, x=15)
+                     Label(check15, text="LOCALIDADE : " + zebra[3]).place(y=140, x=15)
+                     Label(check15, text="SETOR: " + zebra[4]).place(y=160, x=15)
+
+
+
+                    else:
+                         messagebox.showwarning("Erro", "Favor Selecionar uma zebra") 
+                         
+
+
+              applyButton = tk.Button(check15, text='Procurar',command=lambda:pesquisarZebra()).place(y=50, x=170)
+
+
               
+              
+
+                    
+              
+                          
+              
+
 
    
 
@@ -164,7 +192,7 @@ def telaChecklist():
                             indice = 1
 
               botaozebra1 = a1[0]
-              b1 = BotaoAmazonas(botaozebra1[1], botaozebra1[4])
+              #b1 = BotaoAmazonas(botaozebra1[1], botaozebra1[4])
 
                      
 
