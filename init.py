@@ -107,9 +107,41 @@ def telaChecklist():
                                           WHERE localidade = '"""+selecionarEstacao.get()+"""'""").fetchall()
               
               #  GERAR BOTÃO PARA IMPRESSÃO PADRÃO PELA FABRICA SELECIONADA
-              etiquetaPadraoB = tk.Button(check15, text='Padrão ' + selecionarEstacao.get(), command=lambda:imprimirEtiqueta('172.26.51.59', 9100))
               
+              etiquetaPadraoB = tk.Button(check15, text='Padrão ' + selecionarEstacao.get(), command=lambda:gerarTiquetaPadrao())             
+
               etiquetaPadraoB.pack()
+
+              # SELECIONAR IMPRESSORA PARA MANDAR ETIQUETA PADRÃO
+
+              zebraSelecionada = StringVar()
+
+             
+              printer_automacao = Checkbutton(check15,
+                                   variable=zebraSelecionada,
+                                   text='Automacao',
+                                   onvalue='172.26.51.59',
+                                   offvalue=0,)
+
+              printer_automacao.pack()
+              printLabel = tk.Label(check15, text="IP: ")
+              printerEntry = tk.Entry(check15, textvariable=zebraSelecionada)
+              
+              printLabel.pack()
+              printerEntry.pack()
+
+              def imprimir(ip):
+                    print(ip)
+
+
+              botaoImprimir = tk.Button(check15, text='Imprimir', command=lambda:imprimir(zebraSelecionada.get()))
+
+
+              botaoImprimir.pack()
+
+
+
+       
 
               # GERAR BOTOES COM BASE NA QUERY
               a1 = []
