@@ -65,7 +65,7 @@ def menuListarPrinter():
 
         searchZebra = tk.Label(listPrint, text = 'Zebra', font=('calibre',10, 'bold'))
         entryZebra = tk.Entry(listPrint)
-        buttonSearchZebra = tk.Button(listPrint, text="Pesquisar",command=lambda:botaoPesquisarZebra())
+        buttonSearchZebra = tk.Button(listPrint, text="Pesquisar")
 
 
 
@@ -128,6 +128,8 @@ def telaChecklist():
               x = len(listaZebras)
               i = 0
               while i < x:
+                    Zbotao = tk.Button(check15, text='nome', textvariable='a' + str(indice))
+                    Zbotao.pack()
                     print(a1)
                     i+=1
 
