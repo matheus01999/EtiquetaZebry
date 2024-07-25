@@ -142,6 +142,7 @@ def telaChecklist():
                      rowsZebra = cursor.execute("""SELECT * FROM printers
                      WHERE ip = '"""+zebraSelecionada.get()+"""'""").fetchall()
                      zebra = rowsZebra[0]
+
                      Label(check15, text="FILA : " + zebra[1]).place(y=100, x=15)
                      Label(check15, text="IP : " + zebra[2]).place(y=120, x=15)
                      Label(check15, text="LOCALIDADE : " + zebra[3]).place(y=140, x=15)
