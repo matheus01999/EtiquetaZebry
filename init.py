@@ -7,13 +7,14 @@ from etiqueta import *
 from tkinter import messagebox
 
 
+
 #CONECTANDO COM O BANCO DE DADOS
 conn = sqlite3.connect("impressoras.db")
 cursor = conn.cursor()
    
 
 # DEFINIÇÃO DO LAYOUT INICIAL 
-root = tk.Tk()
+root = Tk()
 root.geometry("500x300")
 root.title("IMORESSÃO DE CHECKLIST")
 
