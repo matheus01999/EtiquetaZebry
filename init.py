@@ -125,20 +125,20 @@ def telaChecklist():
                                    variable=zebraSelecionada,
                                    text='Automacao',
                                    onvalue='automacao',
-                                   offvalue=0,).place(y=50, x=400)
+                                   offvalue=0,).place(y=75, x=400)
               
 
               Label(check15, text="IP: ").place(y=50, x=15)
-              printerEntry = tk.Entry(check15, textvariable=zebraSelecionada).place(y=50, x=35)
+              printerEntry = tk.Entry(check15, textvariable=zebraSelecionada).place(y=75, x=15)
               
 
               ttk.Label(root, text= "Selecionar: ")
               
 
+              Label(check15, text="Selecionar Zebra: ").place(y=50, x=15)
+              comboxSelZebra = ttk.Combobox(check15,values=zebras, textvariable=zebraSelecionada).place(y=75 ,x=15)
 
-              comboxSelZebra = ttk.Combobox(check15,values=zebras, textvariable=zebraSelecionada)
-              comboxSelZebra.place(y=50 ,x=15)
-              comboxSelZebra.current(0)
+
 
               #MOSTRAR INFORMAÇÕES DA ZEBRA SELECIONADA
               def pesquisarZebra():
@@ -164,7 +164,7 @@ def telaChecklist():
 
                          
 
-              applyButton = tk.Button(check15, text='Procurar',command=lambda:pesquisarZebra()).place(y=50, x=170)
+              applyButton = tk.Button(check15, text='Procurar',command=lambda:pesquisarZebra()).place(y=75, x=255)
 
                
                     
