@@ -101,7 +101,15 @@ def telaChecklist():
               # BUSCAR ZEBRAS DAS FABRICA SLECIONADA
               rows = cursor.execute("""SELECT * FROM printers
                                           WHERE localidade = '"""+selecionarEstacao.get()+"""'""").fetchall()
+              zebras = ['Selecione uma zebra']
+              x = len(rows)
+              i = 0 
+              while i < x:
+                    z = rows[i]
+                    zebras.append(z[1])
+                    i+=1
               
+
 
               
               #  GERAR BOTÃO PARA IMPRESSÃO PADRÃO PELA FABRICA SELECIONADA
@@ -116,7 +124,7 @@ def telaChecklist():
               printer_automacao = Checkbutton(check15,
                                    variable=zebraSelecionada,
                                    text='Automacao',
-                                   onvalue='172.26.51.59',
+                                   onvalue='automacao',
                                    offvalue=0,).place(y=50, x=400)
               
 
@@ -125,14 +133,10 @@ def telaChecklist():
               
 
               ttk.Label(root, text= "Selecionar: ")
+              
 
 
-              comboxSelZebra = ttk.Combobox(check15, 
-                                          textvariable= zebraSelecionada)
-              comboxSelZebra['values'] = ('Selecione uma zebra',
-                                          'Rio Amazonas',
-                                          'Rio da Prata',
-                                          'Rio São Frnacisco')
+              comboxSelZebra = ttk.Combobox(check15,values=zebras, textvariable=zebraSelecionada)
               comboxSelZebra.place(y=50 ,x=15)
               comboxSelZebra.current(0)
 
@@ -140,14 +144,16 @@ def telaChecklist():
               def pesquisarZebra():
                     if zebraSelecionada.get() != 'Selecione uma zebra':
                      rowsZebra = cursor.execute("""SELECT * FROM printers
-                     WHERE ip = '"""+zebraSelecionada.get()+"""'""").fetchall()
+                     WHERE nome = '"""+zebraSelecionada.get()+"""'""").fetchall()
                      zebra = rowsZebra[0]
                      
 
                      Label(check15, text="FILA : " + zebra[1].upper(), font=("Arial", 10, "bold")).place(y=100, x=15)
                      Label(check15, text="IP : " + zebra[2].upper(), font=("Arial", 10, "bold")).place(y=120, x=15)
                      Label(check15, text="LOCALIDADE : " + zebra[3].upper(), font=("Arial", 10, "bold")).place(y=140, x=15)
-                     Label(check15, text="SETOR : " + zebra[4].upper(), font=("Arial", 10, "bold")).place(y=160, x=15)
+                     Label(check15, text="ANALISTA : " + zebra[6].upper(), font=("Arial", 10, "bold")).place(y=160, x=15)
+                     Label(check15, text="MODELO : " + zebra[5].upper(), font=("Arial", 10, "bold")).place(y=180, x=15)
+                     Label(check15, text="SETOR : " + zebra[4].upper(), font=("Arial", 10, "bold")).place(y=200, x=15)
                      Label(check15, text=date.today(), font=("Arial", 15)).place(y=300, x=15)
                      # ENVIAR INFORMAÇÕES PARA ETIQUETA
                      Button(check15, text='Imprimir', command=lambda:gerarEtiqueta(zebra[1],zebra[4],zebra[3], str(date.today()))).place(x=10, y=450)
@@ -160,53 +166,7 @@ def telaChecklist():
 
               applyButton = tk.Button(check15, text='Procurar',command=lambda:pesquisarZebra()).place(y=50, x=170)
 
-              
-              
-              
-
-
-              
-              
-
-                    
-              
-                          
-              
-
-
-   
-
-
-
-       
-
-              # GERAR BOTOES COM BASE NA QUERY
-              a1 = []
-              a2 = []
-              a3 = []
-              a4 = []
-              a5 = []
-
-              indice = 1
-              listaZebras = []
-
-              for i,num in enumerate(rows):
-                     variavel = 'a' + str(indice)
-                     vars()[variavel].append(num)
-                     listaZebras.append(variavel)
-
-                     indice = indice + 1
-                     if (indice >5):
-                            indice = 1
-
-              botaozebra1 = a1[0]
-              #b1 = BotaoAmazonas(botaozebra1[1], botaozebra1[4])
-
-                     
-
-
-
-              
+               
                     
 
 
