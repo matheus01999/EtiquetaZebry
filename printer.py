@@ -1,22 +1,20 @@
-from xml.dom import minidom
+from tkinter import *
+from tkinter import ttk
+import tkinter as tk
+import sqlite3
+from print import *
+from etiqueta import *
+from buttons import *
+from tkinter import messagebox
 
-#cria documento
-doc = minidom.Document()
+#CONECTANDO COM O BANCO DE DADOS
+conn = sqlite3.connect("impressoras.db")
+cursor = conn.cursor()
 
-#cria raiz e adicionar no documento
-raiz = doc.createElement('raiz')
-doc.appendChild(doc.createElement('raiz'))
+# ADICIONAR IMPRESSORA
 
-#cria itens e adiciona na raiz
-itens = doc.createElement('itens')
-raiz.appendChild(itens)
 
-#cria itens e textos
-for i in range(3):
-    item = doc.createElement('item')
-    item.setAttribute('name', 'item' + str(i+1))
-    itens.appendChild(item)
-    item.appendChild( doc.createTextNode('Item ' + str(i + 1)))
-
-#xmldoc = minidom.Document()
-print(raiz.toprettyxml())
+def adicionarImpressora(nome, ip, localidade, setor, modelo, analista, mac, hostname, patrimonio, serial):
+    # INSERIR OS DADOS DA IMPRESSORA NO BANCO
+    conn.execute("INSERT INTO printers VALUES ('"+nome+"', '"+ip+"','"+localidade+"','"+setor+"','"+modelo+"','"+analista+"','"+mac+"','"+hostname+"','"+patrimonio+"','"+serial+"')")
+    conn.commit()

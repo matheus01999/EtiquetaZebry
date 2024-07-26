@@ -5,6 +5,7 @@ import sqlite3
 from print import *
 from etiqueta import *
 from buttons import *
+from printer import *
 from tkinter import messagebox
 
 
@@ -23,39 +24,51 @@ root.title("IMORESSÃO DE CHECKLIST")
 #  TELA PARA ADICIONAR IMPRESSORA
 def menuAdicionarPrinter():
     newPrint = Toplevel(root)
-    newPrint.geometry("300x200")
+    newPrint.geometry("500x300")
     newPrint.title("ZEBRA")
-    # IP DA IMPRESSORA
-    namePrint_var=tk.StringVar()
-    hostPrint_var=tk.StringVar()
 
-    hostPrint_label = tk.Label(newPrint, text= 'DIGITE O IP DA IMPRESSORA')
-    hostPrint_Entry = tk.Entry(newPrint, textvariable=hostPrint_var)
+    
+    nomPrinter = StringVar()
+    ipPrinter = StringVar()
+    localiPrinter = StringVar()
+    setorPrinter = StringVar()
+    modeloPrinter = StringVar()
+    analistapPrinter = StringVar()
+    macPrinter = StringVar()
+    hostnamePrinter = StringVar()
+    patrimonioPrinter = StringVar()
+    serialPrinter = StringVar()
+
+    # ROTULO DO PROGRAMA
+    text_var = tk.StringVar()
+    text_var.set(selecionarEstacao.get())
+
+    rotulo = tk.Label(newPrint,
+                        textvariable="Adicionar Zebra",
+                        bd=3,
+                        font=("Arial", 16, "bold"),
+                        cursor="hand2",bg='gray', width=40, fg='white').place(x=0, y=0)
+
+    # IP DA IMPRESSORA
+    hostPrint_label = tk.Label(newPrint, text= 'DIGITE O IP DA IMPRESSORA').pack()
+    hostPrint_Entry = tk.Entry(newPrint, textvariable=ipPrinter).pack()
     # NOME DA IMPRESSORA
-    namePrint_label = tk.Label(newPrint, text= 'Z DA IMPRESSORA')
-    namePrint_Entry = tk.Entry(newPrint, textvariable= namePrint_var)
+    namePrint_label = tk.Label(newPrint, text= 'Z DA IMPRESSORA').pack()
+    namePrint_Entry = tk.Entry(newPrint, textvariable= nomPrinter).pack()
+
 
     #BOTÃO DE SALVAR
     buttonSavePrint = tk.Button(newPrint,
                    text="Salvar",
                    padx=10,
                    pady=5,
-                   command=lambda:addPrinter(hostPrint_var.get() ,namePrint_var.get())
-                   )
+                   ).pack(padx=20, pady=20)
+                   
 
-    hostPrint_label.pack()
-    hostPrint_Entry.pack()
-    namePrint_label.pack()
-    namePrint_Entry.pack()
-    buttonSavePrint.pack(padx=20, pady=20)
+   
 
 
-# BOTÃO DO MENU ADICIONAR IMPRESSORA
 
-def addPrinter(host, ip):
-    # INSERIR OS DADOS DA IMPRESSORA NO BANCO
-    conn.execute("INSERT INTO printers VALUES ('"+host+"', '"+ip+"')")
-    conn.commit()
        
 
 # BOTÃO DO MENU PARA LISTAR IMPRESSORAS
