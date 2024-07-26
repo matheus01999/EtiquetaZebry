@@ -9,6 +9,7 @@ from printer import *
 from tkinter import messagebox
 
 localidades = ['Rio Amazonas', 'Rio da Prata', 'Rio São Francisco']
+analistas = ['Matheus Rocha', 'Elias Silvino']
 
 #CONECTANDO COM O BANCO DE DADOS
 conn = sqlite3.connect("impressoras.db")
@@ -54,7 +55,7 @@ def menuAdicionarPrinter():
     Entry(newPrint, textvariable= nomPrinter).place(x=15, y=120)
     # LOCALIDADE
     Label(newPrint, text= 'Localidade').place(x=15, y=140)
-    ttk.Combobox(newPrint, values=localidades).place(x=15, y=160)
+    ttk.Combobox(newPrint, values=localidades , textvariable=localiPrinter).place(x=15, y=160)
     # SETOR
     Label(newPrint, text= 'Setor').place(x=15, y=185)
     Entry(newPrint, textvariable= setorPrinter).place(x=15, y=210)
@@ -63,7 +64,7 @@ def menuAdicionarPrinter():
     Entry(newPrint, textvariable= modeloPrinter).place(x=15, y=260)
     # ANALISTA
     Label(newPrint, text= 'Analista').place(x=15, y=285)
-    ttk.Combobox(newPrint, values=localidades).place(x=15, y=310)
+    ttk.Combobox(newPrint, values=analistas, textvariable=analistapPrinter).place(x=15, y=310)
     # ENDEREÇO MAC
     Label(newPrint, text= 'MAC').place(x=15, y=335)
     Entry(newPrint, textvariable= macPrinter).place(x=15, y=360)
@@ -77,13 +78,8 @@ def menuAdicionarPrinter():
     Label(newPrint, text= 'Serial').place(x=15, y=485)
     Entry(newPrint, textvariable= serialPrinter).place(x=15, y=510)
 
-    def salvarZebra():
-         print('')
-         
-
-
     #BOTÃO DE SALVAR
-    Button(newPrint,text="Salvar").place(x=330, y=450)
+    Button(newPrint,text="Salvar" ,command=lambda:adicionarImpressora(nomPrinter.get(), nomPrinter.get(), ipPrinter.get(), localiPrinter.get(), setorPrinter.get(), modeloPrinter.get(), analistapPrinter.get(), macPrinter.get(), hostnamePrinter.get(), patrimonioPrinter.get(), serialPrinter.get())).place(x=330, y=450)
                    
 
    

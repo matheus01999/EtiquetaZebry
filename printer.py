@@ -16,5 +16,5 @@ cursor = conn.cursor()
 
 def adicionarImpressora(nome, ip, localidade, setor, modelo, analista, mac, hostname, patrimonio, serial):
     # INSERIR OS DADOS DA IMPRESSORA NO BANCO
-    conn.execute("INSERT INTO printers VALUES ('"+nome+"', '"+ip+"','"+localidade+"','"+setor+"','"+modelo+"','"+analista+"','"+mac+"','"+hostname+"','"+patrimonio+"','"+serial+"')")
+    conn.execute("INSERT INTO printers VALUES ('"+nome+"',"+nome+"', '"+ip+"','"+localidade+"','"+setor+"','"+modelo+"','"+analista+"','"+mac+"','"+hostname+"','"+patrimonio+"','"+serial+"')")
     conn.commit()
