@@ -82,7 +82,7 @@ def telaChecklist():
         if selecionarEstacao.get() != "Selecione uma estação" and Checkbutton1.get() == 15 or Checkbutton1.get() == 30:
               check15 = Toplevel(root)
               check15.geometry("500x500")
-              check15.title("CHECKLIST - 15")
+              check15.title("CHECKLIST")
 
               # ROTULO DO PROGRAMA
               text_var = tk.StringVar()
@@ -92,7 +92,7 @@ def telaChecklist():
                                    textvariable=text_var,
                                    bd=3,
                                    font=("Arial", 16, "bold"),
-                                   cursor="hand2").place(x=10, y=10)
+                                   cursor="hand2",bg='gray', width=40, fg='white').place(x=0, y=0)
 
 
 
@@ -122,7 +122,7 @@ def telaChecklist():
 
               Label(check15, text="IP: ").place(y=50, x=15)
               printerEntry = tk.Entry(check15, textvariable=zebraSelecionada).place(y=50, x=35)
-              botaoImprimir = tk.Button(check15, text='Imprimir').place(x=10, y=470)
+              
 
               ttk.Label(root, text= "Selecionar: ")
 
@@ -142,20 +142,27 @@ def telaChecklist():
                      rowsZebra = cursor.execute("""SELECT * FROM printers
                      WHERE ip = '"""+zebraSelecionada.get()+"""'""").fetchall()
                      zebra = rowsZebra[0]
+                     
 
-                     Label(check15, text="FILA : " + zebra[1]).place(y=100, x=15)
-                     Label(check15, text="IP : " + zebra[2]).place(y=120, x=15)
-                     Label(check15, text="LOCALIDADE : " + zebra[3]).place(y=140, x=15)
-                     Label(check15, text="SETOR: " + zebra[4]).place(y=160, x=15)
-
-
+                     Label(check15, text="FILA : " + zebra[1].upper(), font=("Arial", 10, "bold")).place(y=100, x=15)
+                     Label(check15, text="IP : " + zebra[2].upper(), font=("Arial", 10, "bold")).place(y=120, x=15)
+                     Label(check15, text="LOCALIDADE : " + zebra[3].upper(), font=("Arial", 10, "bold")).place(y=140, x=15)
+                     Label(check15, text="SETOR : " + zebra[4].upper(), font=("Arial", 10, "bold")).place(y=160, x=15)
+                     Label(check15, text=date.today(), font=("Arial", 15)).place(y=300, x=15)
+                     # ENVIAR INFORMAÇÕES PARA ETIQUETA
+                     Button(check15, text='Imprimir', command=lambda:gerarEtiqueta(zebra[1],zebra[4],zebra[3], str(date.today()))).place(x=10, y=450)
+              
 
                     else:
                          messagebox.showwarning("Erro", "Favor Selecionar uma zebra") 
+
                          
 
-
               applyButton = tk.Button(check15, text='Procurar',command=lambda:pesquisarZebra()).place(y=50, x=170)
+
+              
+              
+              
 
 
               
