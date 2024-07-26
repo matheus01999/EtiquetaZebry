@@ -8,7 +8,7 @@ from buttons import *
 from printer import *
 from tkinter import messagebox
 
-
+localidades = ['Rio Amazonas', 'Rio da Prata', 'Rio São Francisco']
 
 #CONECTANDO COM O BANCO DE DADOS
 conn = sqlite3.connect("impressoras.db")
@@ -24,7 +24,7 @@ root.title("IMORESSÃO DE CHECKLIST")
 #  TELA PARA ADICIONAR IMPRESSORA
 def menuAdicionarPrinter():
     newPrint = Toplevel(root)
-    newPrint.geometry("400x500")
+    newPrint.geometry("400x550")
     newPrint.title("CADASTRO DE ZEBRA")
 
     
@@ -52,66 +52,77 @@ def menuAdicionarPrinter():
     # IP DA IMPRESSORA
     Label(newPrint, text= 'Z DA IMPRESSORA').place(x=15, y=100)
     Entry(newPrint, textvariable= nomPrinter).place(x=15, y=120)
-    # NOME DA IMPRESSORA
+    # LOCALIDADE
     Label(newPrint, text= 'Localidade').place(x=15, y=140)
-    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=160)
-    # NOME DA IMPRESSORA
-    Label(newPrint, text= 'Setor').place(x=15, y=180)
-    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=200)
-    # NOME DA IMPRESSORA
-    Label(newPrint, text= 'Modelo').place(x=15, y=220)
-    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=240)
-    # NOME DA IMPRESSORA
-    Label(newPrint, text= 'Analista').place(x=15, y=260)
-    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=280)
-    # NOME DA IMPRESSORA
-    Label(newPrint, text= 'MAC').place(x=15, y=300)
-    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=320)
-    # NOME DA IMPRESSORA
-    Label(newPrint, text= 'Hostname').place(x=15, y=340)
-    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=360)
-    # NOME DA IMPRESSORA
-    Label(newPrint, text= 'Patrimonio').place(x=15, y=380)
-    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=400)
-    # NOME DA IMPRESSORA
-    Label(newPrint, text= 'Serial').place(x=15, y=420)
-    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=440)
+    ttk.Combobox(newPrint, values=localidades).place(x=15, y=160)
+    # SETOR
+    Label(newPrint, text= 'Setor').place(x=15, y=185)
+    Entry(newPrint, textvariable= setorPrinter).place(x=15, y=210)
+    # MODELO
+    Label(newPrint, text= 'Modelo').place(x=15, y=235)
+    Entry(newPrint, textvariable= modeloPrinter).place(x=15, y=260)
+    # ANALISTA
+    Label(newPrint, text= 'Analista').place(x=15, y=285)
+    ttk.Combobox(newPrint, values=localidades).place(x=15, y=310)
+    # ENDEREÇO MAC
+    Label(newPrint, text= 'MAC').place(x=15, y=335)
+    Entry(newPrint, textvariable= macPrinter).place(x=15, y=360)
+    # HOSTNAME
+    Label(newPrint, text= 'Hostname').place(x=15, y=385)
+    Entry(newPrint, textvariable= hostnamePrinter).place(x=15, y=410)
+    # PATRIMONIO
+    Label(newPrint, text= 'Patrimonio').place(x=15, y=435)
+    Entry(newPrint, textvariable= patrimonioPrinter).place(x=15, y=460)
+    # SERIAL
+    Label(newPrint, text= 'Serial').place(x=15, y=485)
+    Entry(newPrint, textvariable= serialPrinter).place(x=15, y=510)
+
+    def salvarZebra():
+         print('')
+         
 
 
     #BOTÃO DE SALVAR
-    buttonSavePrint = tk.Button(newPrint,
-                   text="Salvar",
-                   padx=10,
-                   pady=5,
-                   ).place(x=330, y=450)
+    Button(newPrint,text="Salvar").place(x=330, y=450)
                    
 
    
 
 
 
-       
+# BOTÃO DO MENU PREFERENCIAS
 
-# BOTÃO DO MENU PARA LISTAR IMPRESSORAS
+def menuPrefencia():
+     prefencePrint = Toplevel(root)
+     prefencePrint.geometry('400x300')
+     prefencePrint.title("Parametros")
 
-def menuListarPrinter():
-        listPrint = Toplevel(root)
-        listPrint.geometry("300x300")
-        listPrint.title("ZEBRA")
+     # CADASTRAR ANALISTA
+     analistaCad = StringVar()
+     Label(prefencePrint, text ='Analista').place(x=15, y=30)
+     Entry(prefencePrint, textvariable=analistaCad).place(x=90, y=30)
+     def salvarAnalista():
+          print()
+     Button(prefencePrint, text="Cadastrar").place(x=250, y=30)
 
-        searchZebra = tk.Label(listPrint, text = 'Zebra', font=('calibre',10, 'bold'))
-        entryZebra = tk.Entry(listPrint)
-        buttonSearchZebra = tk.Button(listPrint, text="Pesquisar")
+     # CADASTRAR LOCALIDADE
+     localCad = StringVar()
+     Label(prefencePrint, text ='Localidade').place(x=15, y=70)
+     Entry(prefencePrint, textvariable=localCad).place(x=90, y=70)
+     def salvarLocal():
+          print("teste")
+     Button(prefencePrint, text="Cadastrar").place(x=250, y=70)
 
 
 
-        searchZebra.pack()
-        entryZebra.pack(pady=10)
-        buttonSearchZebra.pack(pady=10)
+
+
+
+
 
   
 
-# TELA DE CHECKLIST 15 
+# TELA DE CHECKLIST
 def telaChecklist():
         if selecionarEstacao.get() != "Selecione uma estação" and Checkbutton1.get() == 15 or Checkbutton1.get() == 30:
               check15 = Toplevel(root)
@@ -170,7 +181,7 @@ def telaChecklist():
               
 
               Label(check15, text="Selecionar Zebra: ").place(y=50, x=15)
-              comboxSelZebra = ttk.Combobox(check15,values=zebras, textvariable=zebraSelecionada).place(y=75 ,x=15)
+              ttk.Combobox(check15,values=zebras, textvariable=zebraSelecionada).place(y=75 ,x=15)
 
 
 
@@ -219,7 +230,7 @@ Arquivo = Menu(menuBar, tearoff= 0)
 # MENU ARQUIVO 
 menuBar.add_cascade(label="Arquivo", menu = Arquivo)
 Arquivo.add_command(label="Adicionar impressora zebra", command = menuAdicionarPrinter)
-Arquivo.add_command(label="Zebras Cadastradas", command = menuListarPrinter)
+Arquivo.add_command(label="Preferencias", command=menuPrefencia)
 
 root.config(menu = menuBar) 
 
