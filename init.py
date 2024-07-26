@@ -151,8 +151,8 @@ def telaChecklist():
                      Label(check15, text=date.today(), font=("Arial", 15)).place(y=300, x=15)
                      # ENVIAR INFORMAÇÕES PARA ETIQUETA
                      Button(check15, text='Imprimir', command=lambda:gerarEtiqueta(zebra[1],zebra[4],zebra[3], str(date.today()))).place(x=10, y=450)
-              
 
+                     
                     else:
                          messagebox.showwarning("Erro", "Favor Selecionar uma zebra") 
 
