@@ -24,8 +24,8 @@ root.title("IMORESSÃO DE CHECKLIST")
 #  TELA PARA ADICIONAR IMPRESSORA
 def menuAdicionarPrinter():
     newPrint = Toplevel(root)
-    newPrint.geometry("500x300")
-    newPrint.title("ZEBRA")
+    newPrint.geometry("400x500")
+    newPrint.title("CADASTRO DE ZEBRA")
 
     
     nomPrinter = StringVar()
@@ -39,22 +39,43 @@ def menuAdicionarPrinter():
     patrimonioPrinter = StringVar()
     serialPrinter = StringVar()
 
-    # ROTULO DO PROGRAMA
-    text_var = tk.StringVar()
-    text_var.set(selecionarEstacao.get())
-
+    # ROTULO DA TELA 
     rotulo = tk.Label(newPrint,
-                        textvariable="Adicionar Zebra",
+                        text="Adicionar Zebra",
                         bd=3,
                         font=("Arial", 16, "bold"),
-                        cursor="hand2",bg='gray', width=40, fg='white').place(x=0, y=0)
+                        cursor="hand2",bg='gray',width=30, fg='white').place(x=0, y=0)
 
-    # IP DA IMPRESSORA
-    hostPrint_label = tk.Label(newPrint, text= 'DIGITE O IP DA IMPRESSORA').pack()
-    hostPrint_Entry = tk.Entry(newPrint, textvariable=ipPrinter).pack()
     # NOME DA IMPRESSORA
-    namePrint_label = tk.Label(newPrint, text= 'Z DA IMPRESSORA').pack()
-    namePrint_Entry = tk.Entry(newPrint, textvariable= nomPrinter).pack()
+    Label(newPrint, text= 'Endereco IP').place(x=15, y=60)
+    Entry(newPrint, textvariable=ipPrinter).place(x=15, y=80)
+    # IP DA IMPRESSORA
+    Label(newPrint, text= 'Z DA IMPRESSORA').place(x=15, y=100)
+    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=120)
+    # NOME DA IMPRESSORA
+    Label(newPrint, text= 'Localidade').place(x=15, y=140)
+    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=160)
+    # NOME DA IMPRESSORA
+    Label(newPrint, text= 'Setor').place(x=15, y=180)
+    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=200)
+    # NOME DA IMPRESSORA
+    Label(newPrint, text= 'Modelo').place(x=15, y=220)
+    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=240)
+    # NOME DA IMPRESSORA
+    Label(newPrint, text= 'Analista').place(x=15, y=260)
+    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=280)
+    # NOME DA IMPRESSORA
+    Label(newPrint, text= 'MAC').place(x=15, y=300)
+    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=320)
+    # NOME DA IMPRESSORA
+    Label(newPrint, text= 'Hostname').place(x=15, y=340)
+    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=360)
+    # NOME DA IMPRESSORA
+    Label(newPrint, text= 'Patrimonio').place(x=15, y=380)
+    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=400)
+    # NOME DA IMPRESSORA
+    Label(newPrint, text= 'Serial').place(x=15, y=420)
+    Entry(newPrint, textvariable= nomPrinter).place(x=15, y=440)
 
 
     #BOTÃO DE SALVAR
@@ -62,7 +83,7 @@ def menuAdicionarPrinter():
                    text="Salvar",
                    padx=10,
                    pady=5,
-                   ).pack(padx=20, pady=20)
+                   ).place(x=330, y=450)
                    
 
    
