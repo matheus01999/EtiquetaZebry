@@ -79,9 +79,8 @@ def menuAdicionarPrinter():
     Entry(newPrint, textvariable= serialPrinter).place(x=15, y=510)
 
     #BOTÃO DE SALVAR
-    salvarZebutton = Button(newPrint,text="Salvar" ,command=lambda:adicionarImpressora(nomPrinter.get(), ipPrinter.get(), localiPrinter.get(), setorPrinter.get(), modeloPrinter.get(), analistapPrinter.get(), macPrinter.get(), hostnamePrinter.get(), patrimonioPrinter.get(), serialPrinter.get()))
-    salvarZebutton.place(x=330, y=450)
-                   
+    Button(newPrint,text="Salvar" ,command=lambda:adicionarImpressora(nomPrinter.get(), ipPrinter.get(), localiPrinter.get(), setorPrinter.get(), modeloPrinter.get(), analistapPrinter.get(), macPrinter.get(), hostnamePrinter.get(), patrimonioPrinter.get(), serialPrinter.get())).place(x=330, y=450)
+   
 
    
 
