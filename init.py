@@ -1,11 +1,11 @@
 from tkinter import *
-from tkinter import ttk
-import tkinter as tk
-import sqlite3
 from print import *
 from etiqueta import *
 from buttons import *
 from printer import *
+from tkinter import ttk
+import tkinter as tk
+import sqlite3
 from tkinter import messagebox
 
 localidades = ['Rio Amazonas', 'Rio da Prata', 'Rio São Francisco']
@@ -79,7 +79,8 @@ def menuAdicionarPrinter():
     Entry(newPrint, textvariable= serialPrinter).place(x=15, y=510)
 
     #BOTÃO DE SALVAR
-    Button(newPrint,text="Salvar" ,command=lambda:adicionarImpressora(nomPrinter.get(), nomPrinter.get(), ipPrinter.get(), localiPrinter.get(), setorPrinter.get(), modeloPrinter.get(), analistapPrinter.get(), macPrinter.get(), hostnamePrinter.get(), patrimonioPrinter.get(), serialPrinter.get())).place(x=330, y=450)
+    salvarZebutton = Button(newPrint,text="Salvar" ,command=lambda:adicionarImpressora(nomPrinter.get(), ipPrinter.get(), localiPrinter.get(), setorPrinter.get(), modeloPrinter.get(), analistapPrinter.get(), macPrinter.get(), hostnamePrinter.get(), patrimonioPrinter.get(), serialPrinter.get()))
+    salvarZebutton.place(x=330, y=450)
                    
 
    
