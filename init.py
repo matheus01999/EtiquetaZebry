@@ -1,5 +1,4 @@
 from tkinter import *
-from print import *
 from etiqueta import *
 from buttons import *
 from printer import *
@@ -7,6 +6,7 @@ from tkinter import ttk
 import tkinter as tk
 import sqlite3
 from tkinter import messagebox
+
 
 localidades = ['Rio Amazonas', 'Rio da Prata', 'Rio São Francisco']
 analistas = ['Matheus Rocha', 'Elias Silvino']
@@ -136,9 +136,6 @@ def telaChecklist():
                                    cursor="hand2",bg='gray', width=40, fg='white').place(x=0, y=0)
 
 
-
-
-
               # BUSCAR ZEBRAS DAS FABRICA SLECIONADA
               rows = cursor.execute("""SELECT * FROM printers
                                           WHERE localidade = '"""+selecionarEstacao.get()+"""'""").fetchall()
@@ -151,8 +148,6 @@ def telaChecklist():
                     i+=1
               
 
-
-              
               #  GERAR BOTÃO PARA IMPRESSÃO PADRÃO PELA FABRICA SELECIONADA
               
               etiquetaPadraoB = tk.Button(check15, text='Padrão ' + selecionarEstacao.get()).place(x=350, y=450)     
@@ -162,7 +157,7 @@ def telaChecklist():
               # SELECIONAR IMPRESSORA 
 
               zebraSelecionada = StringVar()
-              printer_automacao = Checkbutton(check15,
+              Checkbutton(check15,
                                    variable=zebraSelecionada,
                                    text='Automacao',
                                    onvalue='automacao',
@@ -197,7 +192,7 @@ def telaChecklist():
                      Label(check15, text="SETOR : " + zebra[4].upper(), font=("Arial", 10, "bold")).place(y=200, x=15)
                      Label(check15, text=date.today(), font=("Arial", 15)).place(y=300, x=15)
                      # ENVIAR INFORMAÇÕES PARA ETIQUETA
-                     Button(check15, text='Imprimir', command=lambda:gerarEtiqueta(zebra[1],zebra[4],zebra[3], str(date.today()))).place(x=10, y=450)
+                     Button(check15, text='Imprimir', command=lambda:gerarEtiqueta(zebra[1],zebra[4],zebra[3], 'hoje')).place(x=10, y=450)
 
                      
                     else:
@@ -205,7 +200,7 @@ def telaChecklist():
 
                          
 
-              applyButton = tk.Button(check15, text='Procurar',command=lambda:pesquisarZebra()).place(y=75, x=255)
+              Button(check15, text='Procurar',command=lambda:pesquisarZebra()).place(y=75, x=255)
 
                
                     
