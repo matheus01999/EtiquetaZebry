@@ -28,7 +28,7 @@ def gerarEtiqueta(zebra, setor, localidade, data):
 
     print(etiqueta)
 
-gerarEtiqueta('','','','')
+
 
 def gerarTiquetaPadrao():
     etiquetaPadrao = '''^XA

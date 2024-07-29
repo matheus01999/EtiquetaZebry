@@ -41,7 +41,7 @@ def menuAdicionarPrinter():
     serialPrinter = StringVar()
 
     # ROTULO DA TELA 
-    rotulo = tk.Label(newPrint,
+    Label(newPrint,
                         text="Adicionar Zebra",
                         bd=3,
                         font=("Arial", 16, "bold"),
@@ -129,7 +129,7 @@ def telaChecklist():
               text_var = tk.StringVar()
               text_var.set(selecionarEstacao.get())
 
-              rotulo = tk.Label(check15,
+              tk.Label(check15,
                                    textvariable=text_var,
                                    bd=3,
                                    font=("Arial", 16, "bold"),
@@ -150,7 +150,7 @@ def telaChecklist():
 
               #  GERAR BOTÃO PARA IMPRESSÃO PADRÃO PELA FABRICA SELECIONADA
               
-              etiquetaPadraoB = tk.Button(check15, text='Padrão ' + selecionarEstacao.get()).place(x=350, y=450)     
+              Button(check15, text='Padrão ' + selecionarEstacao.get()).place(x=350, y=450)     
 
 
 
@@ -165,7 +165,7 @@ def telaChecklist():
               
 
               Label(check15, text="IP: ").place(y=50, x=15)
-              printerEntry = tk.Entry(check15, textvariable=zebraSelecionada).place(y=75, x=15)
+              Entry(check15, textvariable=zebraSelecionada).place(y=75, x=15)
               
 
               ttk.Label(root, text= "Selecionar: ")
@@ -227,12 +227,6 @@ root.config(menu = menuBar)
 
 
 
-
-
-
-     
-          
-     
 
 
 # ROTULO DO PROGRAMA
